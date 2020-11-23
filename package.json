@@ -1,6 +1,6 @@
 {
   "name": "naver-ncloud-apis",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Naver ncloud apis",
   "main": "./src/index.js",
   "repository": {

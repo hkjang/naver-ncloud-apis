@@ -10,6 +10,7 @@ console.log(secretKey);
 module.exports = {
     getZoneList: () => {
         return ncloud({
+            apigw: 'ncloud',
             method: 'GET',
             action: 'getZoneList',
             basePath: '/server/v2/',
@@ -18,6 +19,7 @@ module.exports = {
     },
     getServerInstanceList: () => {
         return ncloud({
+            apigw: 'ncloud',
             method: 'GET',
             action: 'getServerInstanceList',
             basePath: '/server/v2/',

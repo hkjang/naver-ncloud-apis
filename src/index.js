@@ -6,7 +6,7 @@ const ncloud = require('./ncloud');
 const accessKey = ncloud.prototype.readConfigureFile().ncloud_access_key_id;
 const secretKey = ncloud.prototype.readConfigureFile().ncloud_secret_access_key;
 
-const baseURL = 'https://ncloud.apigw.ntruss.com/';
+let baseURL = 'https://ncloud.apigw.ntruss.com/';
 const space = " ";
 const newLine = "\n";
 
@@ -15,7 +15,12 @@ const newLine = "\n";
 // const basePath = '/sms/v2/services/{serviceId}/';
 // const action = 'messages';
 
-module.exports = ({ method, basePath, action, actionParams={} }) => {
+module.exports = ({ apigw, method, basePath, action, actionParams={} }) => {
+  if(apigw){
+    baseURL = 'https://' + apigw + '.apigw.ntruss.com/';
+  }else{
+    baseURL = 'https://ncloud.apigw.ntruss.com/';
+  }
   const timestamp = Date.now();
   const message = [];
   let params = [];
