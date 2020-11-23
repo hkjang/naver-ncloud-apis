@@ -1,55 +1,47 @@
-# Public Google sheets parser
+# naver-ncloud-apis
 
-It is a simple parser that helps you use public Google sheets document as if they were a database.
 
-The document to be used must be a Google Sheets document in the 'public' state and have a header in the first row. (e.g. [Google sheets for example](https://docs.google.com/spreadsheets/d/10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps/edit#gid=1839148703))
+## 설치
 
-There is a limitation that only the data of the first sheet can be imported, but it seems that it can be fully utilized for simple purposes, so I made it.
+### For [Node.js](https://nodejs.org/)
 
-It does not work in browsers where the [fetch API](https://caniuse.com/fetch) is not available.
+#### npm
 
-**No API key required.** This means that the server does not need to use the private key to use the SDK.
+설치는 npm 또는 yarn 을 이용해서 아래의 명령어로 설치할 수 있습니다.
 
-You can also use it via free API. Please see [this documentation](https://api.fureweb.com).
-If you have a public spreadsheet document, and the first row is a header and you have more than one row of data, you can call it free of charge through this API and use the result as a JSON response.
+```
+npm install naver-ncloud-apis --save
+```
 
-### Demo page
-[Click here](http://fureweb.com/naver-ncloud-apis.html)
+## 시작하기
+
+### ncloud-sdk 를 사용하기 위해서는 먼저 인증키를 생성해야 합니다.
+
+- 인증키는 [포털](https://www.ncloud.com)의 마이페이지 > 계정관리 > [인증키 관리](https://www.ncloud.com/mypage/manage/authkey) 메뉴에서 "신규 API 인증키 생성"을 통해서 Access Key ID, Secret Key 를 생성합니다.
+- 이미 생성된 인증키가 있을 경우 [포털](https://www.ncloud.com)의 마이페이지 > 계정관리 > [인증키 관리](https://www.ncloud.com/mypage/manage/authkey) 메뉴에서 확인할 수 있습니다.
+- sub account 의 경우, [Console](https://console.ncloud.com)의 [Sub Account](https://console.ncloud.com/iam/dashboard) > Sub Accounts > 서브 계정 상세 메뉴에서 "API Key"탭에서 생성한 Access Key ID, Secret Key 를 사용할 수도 있습니다.
+
+### 생성된 인증키 정보를 저장합니다.
+
+- Mac/Linux 의 경우 ~/.ncloud/configure 에, Windows 의 경우 C:\Users\USERNAME\\.ncloud\configure 에 인증키 정보를 저장합니다.
+- configure 파일은 [NCLOUD CLI](http://docs.ncloud.com/ko/tool/tool-3-1.html) 를 이용하여 생성할 수도 있습니다.
+- configure example
+
+```
+ncloud_access_key_id = xxxxxxxxxxxxx
+ncloud_secret_access_key = xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
 
 ### Usage example
 - Node.js
 ```js
-const PublicGoogleSheetsParser = require('naver-ncloud-apis')
 
-const spreadsheetId = '10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps'
-const parser = new PublicGoogleSheetsParser(spreadsheetId)
-parser.parse().then((items) => {
-  // items should be [{ a: 1, b: 2, c: 3}, { a: 4, b: 5, c: 6 }, ...]
-  console.log(items)
-})
+const ncloud = require('naver-ncloud-apis')
+
+ncloud({
+            method: 'GET',
+            action: 'getZoneList',
+            basePath: '/server/v2/',
+        }).then(response => response.data)
+          .catch(error => error.response.data);
 ```
-
-- browser
-```html
-<script src="https://cdn.jsdelivr.net/npm/naver-ncloud-apis@1.0.9/src/index.min.js"></script>
-
-<script>
-const spreadsheetId = '10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps'
-const parser = new PublicGoogleSheetsParser(spreadsheetId)
-parser.parse().then((items) => {
-  // items should be [{ a: 1, b: 2, c: 3}, { a: 4, b: 5, c: 6 }, ...]
-  console.log(items)
-})
-</script>
-```
-
-- free API ([documentation](https://api.fureweb.com))
-
-```sh
-curl -X GET "https://api.fureweb.com/spreadsheets/10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps" -H "accept: */*"
-
-# response (application/json)
-{"data":[{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]}
-```
-**That's it!**
-

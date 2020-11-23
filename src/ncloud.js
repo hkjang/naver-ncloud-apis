@@ -39,6 +39,7 @@ ncloud.prototype = {
         }
 
         const config = this.readConfigureFile();
+        console.log(config);
 
         return {
             accessKey: config.ncloud_access_key_id,

@@ -3,8 +3,8 @@ const Base64 = require('crypto-js/enc-base64');
 const axios = require('axios');
 const ncloud = require('./ncloud');
 
-const accessKey = ncloud.prototype.accessKey;
-const secretKey = ncloud.prototype.secretKey;
+const accessKey = ncloud.prototype.readConfigureFile().ncloud_access_key_id;
+const secretKey = ncloud.prototype.readConfigureFile().ncloud_secret_access_key;
 
 const baseURL = 'https://ncloud.apigw.ntruss.com/';
 const space = " ";
