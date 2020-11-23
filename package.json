@@ -1,0 +1,30 @@
+{
+  "name": "naver-ncloud-apis",
+  "version": "0.0.1",
+  "description": "Public Google sheets parser",
+  "main": "./src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hkjang/naver-ncloud-apis.git"
+  },
+  "keywords": [
+    "naver",
+    "api",
+    "apis",
+    "sens",
+    "ncloud"
+  ],
+  "author": {
+    "name": "hkjang",
+    "email": "gagagiga@naver.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hkjang/naver-ncloud-apis.git"
+  },
+  "homepage": "https://github.com/hkjang/naver-ncloud-apis.git",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "crypto-js": "^4.0.0"
+  }
+}
